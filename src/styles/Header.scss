@@ -1,0 +1,5 @@
+@import "../scss/variables.scss";
+
+#header {
+  background: linear-gradient(to right, $color-header-1, $color-header-2);
+}

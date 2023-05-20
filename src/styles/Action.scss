@@ -1,0 +1,33 @@
+@import "../scss/variables.scss";
+
+#action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 23px 25px 29px 25px;
+
+  .add-btn {
+    background-color: $color-1;
+    border: none;
+    color: white;
+    padding: 7px 10px;
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: darken($color-1, 10%);
+    }
+  }
+
+  .search-btn {
+    width: 285px;
+    height: 42px;
+    border: 1px solid #828d9980;
+    border-radius: 5px;
+    padding: 0 10px;
+    background: #ffffff;
+  }
+}
