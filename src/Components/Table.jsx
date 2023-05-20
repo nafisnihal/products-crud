@@ -1,7 +1,8 @@
 import React from "react";
+import "../styles/Table.scss";
 
 const Table = () => {
-  return <div>Table</div>;
+  return <div id="table">Table</div>;
 };
 
 export default Table;
