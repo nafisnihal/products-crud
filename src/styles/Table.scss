@@ -2,4 +2,34 @@
 
 #table {
   margin: 0px 25px 0px 25px;
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    width: 100%;
+    thead {
+      tr {
+        th {
+          font-family: $font-family;
+          padding: 15px 0px;
+          background-color: #9f9f9f;
+          color: #333333;
+          font-weight: 600;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        box-shadow: 1px 1px 4px #e4e4e4, -1px -1px 4px #e4e4e4;
+        -moz-box-shadow: 1px 1px 1px 0px #e4e4e4, -1px1px 0px 0.1px #e4e4e4;
+        -webkit-box-shadow: 1px 1px 1px 0px #e4e4e4, -1px -1px 1px 0px #e4e4e4;
+        td {
+          font-family: $font-family;
+          color: #333333;
+          padding: 15px 0px;
+        }
+      }
+    }
+  }
 }
