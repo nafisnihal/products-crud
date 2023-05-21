@@ -6,8 +6,8 @@ import { BsTrash3 } from "react-icons/bs";
 const Table = () => {
   return (
     <div id="table">
-      <table className="text-center data-table">
-        <thead className="data-table-head">
+      <table className="text-center">
+        <thead className="">
           <tr className="">
             <th className="py-2">SL</th>
             <th>Asset No.</th>
@@ -21,8 +21,8 @@ const Table = () => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody className="data-table-body">
-          <tr className="products">
+        <tbody className="">
+          <tr className="">
             <td className="">1</td>
             <td>123456</td>
             <td>Computer</td>

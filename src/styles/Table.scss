@@ -21,8 +21,8 @@
 
     tbody {
       tr {
-        box-shadow: 1px 1px 4px #e4e4e4, -1px -1px 4px #e4e4e4;
-        -moz-box-shadow: 1px 1px 1px 0px #e4e4e4, -1px1px 0px 0.1px #e4e4e4;
+        box-shadow: 1px 1px 1px 0px #e4e4e4, -1px -1px 1px 0px #e4e4e4;
+        -moz-box-shadow: 1px 1px 1px 0px #e4e4e4, -1px -1px 0px 0.1px #e4e4e4;
         -webkit-box-shadow: 1px 1px 1px 0px #e4e4e4, -1px -1px 1px 0px #e4e4e4;
         td {
           font-family: $font-family;
