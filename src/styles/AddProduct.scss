@@ -1,1 +1,55 @@
 @import "../scss/variables.scss";
+
+#add-products {
+  font-family: $font-family;
+  .modal-content {
+    width: 582px;
+    height: 595px;
+    border: 0;
+    border-radius: 0;
+    background-color: #f7f7fa;
+  }
+
+  .add-product {
+    width: 80%;
+    margin: 20px auto;
+    &-field {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &-label {
+      font-size: 14px;
+      color: $font-color-2;
+    }
+    &-input {
+      width: 347px;
+      height: 40px;
+      border: 1px solid #e0e0e0;
+      padding: 8px 0px 10px 22px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $font-color;
+      outline: none;
+    }
+    .warranty {
+      font-size: 14px;
+      font-weight: 400;
+      color: $font-color;
+      outline: none;
+      margin-left: 26%;
+      margin-bottom: 10px;
+      margin-top: 21px;
+      display: flex;
+      align-items: center;
+      &-input {
+        margin-right: 5px;
+        cursor: pointer;
+      }
+      &-label {
+        cursor: pointer;
+      }
+    }
+  }
+}
