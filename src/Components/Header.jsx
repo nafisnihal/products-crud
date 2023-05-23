@@ -5,7 +5,9 @@ import "../styles/Header.scss";
 const Header = () => {
   return (
     <div id="header">
-      <img src={logo} alt="logo" className="ms-4 my-3" />
+      <a href="/">
+        <img src={logo} alt="logo" className="ms-4 my-3" />
+      </a>
     </div>
   );
 };

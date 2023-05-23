@@ -3,10 +3,10 @@ import "../styles/Action.scss";
 import AddProduct from "./AddProduct";
 
 const Action = () => {
-  const [show, setShow] = useState(false);
+  const [addProductShow, setAddProductShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setAddProductShow(false);
+  const handleShow = () => setAddProductShow(true);
 
   return (
     <div id="action">
@@ -20,7 +20,9 @@ const Action = () => {
         className="search-btn"
         placeholder="Search here"
       />
-      {show && <AddProduct show={show} handleClose={handleClose} />}
+      {addProductShow && (
+        <AddProduct show={addProductShow} handleClose={handleClose} />
+      )}
     </div>
   );
 };

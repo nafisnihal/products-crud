@@ -1,0 +1,44 @@
+@import "../scss/variables.scss";
+
+#delete-product {
+  .modal-content {
+    font-family: $font-family;
+    width: 582px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #f7f7fa;
+    .delete-icon {
+      margin-top: 20px;
+      margin-bottom: 17px;
+      background-color: rgba(235, 87, 87, 0.1);
+      border-radius: 50%;
+      .icon {
+        padding: 10px 20px;
+        color: $color-btn-secondary;
+        font-size: 80px;
+      }
+    }
+    .confirm-btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin: 34px 52px 30px 0px;
+      font-family: $font-family;
+      .no-btn {
+        padding: 6px 20px;
+        color: $color-btn-secondary;
+        background-color: #f7f7fa;
+        border: 2px solid $color-btn-secondary;
+        border-radius: 4px;
+      }
+      .yes-btn {
+        padding: 6px 20px;
+        color: white;
+        background-color: $color-btn-secondary;
+        border: 2px solid $color-btn-secondary;
+        border-radius: 4px;
+      }
+    }
+  }
+}

@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Table.scss";
 import { FiEdit } from "react-icons/fi";
 import { BsTrash3 } from "react-icons/bs";
 import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../helpers/API";
 import { FcRemoveImage } from "react-icons/fc";
+import EditProduct from "./EditProduct";
+import DeleteProduct from "./DeleteProduct";
 
 const Table = () => {
+  const [editProduct, setEditProduct] = useState(false);
+  const [deleteProduct, setDeleteProduct] = useState(false);
+
+  const handleEditProduct = () => {
+    setEditProduct(true);
+  };
+
+  const handleDeleteProduct = () => {
+    setDeleteProduct(true);
+  };
+
+  const handleClose = () => {
+    setEditProduct(false);
+    setDeleteProduct(false);
+  };
+
   const { data: productsData = [] } = useQuery([`/products`]);
   // console.log(productsData);
   return (
@@ -50,10 +68,16 @@ const Table = () => {
               <td>{product?.warrantyInYears || "N/A"}</td>
               <td>{product?.purchaseDate}</td>
               <td>
-                <button className="border-0 text-primary fs-4">
+                <button
+                  onClick={() => handleEditProduct()}
+                  className="border-0 text-primary fs-4"
+                >
                   <FiEdit className="pb-1" />
                 </button>
-                <button className="border-0 text-danger fs-4 ms-2">
+                <button
+                  onClick={() => handleDeleteProduct()}
+                  className="border-0 text-danger fs-4 ms-2"
+                >
                   <BsTrash3 className="pb-1" />
                 </button>
               </td>
@@ -61,6 +85,12 @@ const Table = () => {
           ))}
         </tbody>
       </table>
+      {editProduct && (
+        <EditProduct show={editProduct} handleClose={handleClose} />
+      )}
+      {deleteProduct && (
+        <DeleteProduct show={deleteProduct} handleClose={handleClose} />
+      )}
     </div>
   );
 };
