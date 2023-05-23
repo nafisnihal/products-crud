@@ -152,6 +152,14 @@ const AddProduct = ({ show, handleClose }) => {
               </div>
             )}
           </div>
+          <div className="submit-buttons">
+            <button type="reset" className="cancel-btn" onClick={handleClose}>
+              Cancel
+            </button>
+            <button type="submit" className="save-btn">
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </Modal>

@@ -91,5 +91,25 @@
         }
       }
     }
+    .submit-buttons {
+      font-family: $font-family;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap: 10px;
+      margin-top: 35px;
+      .cancel-btn {
+        padding: 10px 20px;
+        color: $color-btn-secondary;
+        background-color: #f7f7fa;
+        border: 1px solid $color-btn-secondary;
+      }
+      .save-btn {
+        padding: 10px 20px;
+        color: white;
+        background-color: $color-btn-primary;
+        border: 1px solid $color-btn-primary;
+      }
+    }
   }
 }
