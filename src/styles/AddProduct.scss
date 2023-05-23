@@ -4,10 +4,17 @@
   font-family: $font-family;
   .modal-content {
     width: 582px;
-    height: 595px;
     border: 0;
     border-radius: 0;
     background-color: #f7f7fa;
+  }
+
+  .add-products-title {
+    margin-top: 17px;
+    font-size: 20px;
+    font-weight: 600;
+    color: $font-color;
+    margin-bottom: 20px;
   }
 
   .add-product {
@@ -49,6 +56,39 @@
       }
       &-label {
         cursor: pointer;
+      }
+    }
+    .image {
+      margin-top: 30px;
+      margin-left: 26%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .image-btn-div {
+        .image-btn {
+          border: 1px solid #bdbdbd;
+          border-radius: 4px;
+          background-color: #f7f7fa;
+          padding: 10px 6px 10px 15px;
+          font-size: 16px;
+          font-weight: 600;
+          color: $font-color;
+          outline: none;
+          cursor: pointer;
+          .image-btn-icon {
+            font-size: 24px;
+            padding: 2px 4px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin-right: 7px;
+          }
+        }
+      }
+      .preview {
+        .preview-image {
+          width: 130px;
+          height: 130px;
+        }
       }
     }
   }

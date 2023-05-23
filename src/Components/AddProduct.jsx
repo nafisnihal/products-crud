@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import "../styles/AddProduct.scss";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineCamera } from "react-icons/ai";
 
 const AddProduct = ({ show, handleClose }) => {
   const [checked, setChecked] = useState(false);
+  const [image, setImage] = useState(null);
   return (
     <Modal id="add-products" show={show} onHide={handleClose}>
       <div className="d-flex align-items-center">
-        <h2 className="mt-2 ms-auto" closeButton>
-          Add New Products
-        </h2>
+        <h2 className="add-products-title ms-auto">Add New Products</h2>
         <button onClick={handleClose} className="ms-auto me-3 border-0">
           <AiOutlineClose className="fs-4" />
         </button>
@@ -87,7 +85,7 @@ const AddProduct = ({ show, handleClose }) => {
               value="has-warranty"
               onClick={() => setChecked(!checked)}
             ></input>
-            <label className="warranty-label" for="has-warranty">
+            <label className="warranty-label" htmlFor="has-warranty">
               Has Warranty
             </label>
           </div>
@@ -119,6 +117,41 @@ const AddProduct = ({ show, handleClose }) => {
               </div>
             </>
           )}
+          <div className="image">
+            <div className="image-btn-div">
+              <label
+                htmlFor="image"
+                onClick={() => console.log("picture")}
+                className="image-btn"
+              >
+                <AiOutlineCamera className="image-btn-icon" />
+                Add Image
+              </label>
+              <input
+                type="file"
+                className="image-input"
+                name="image"
+                id="image"
+                hidden
+                accept="image/*"
+                onChange={(e) => {
+                  // setValue("profile_pic", e.target.files[0], {
+                  //   shouldValidate: true,
+                  // });
+                  setImage(e.target.files[0]);
+                }}
+              ></input>
+            </div>
+            {Boolean(image) && (
+              <div className="preview">
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt=""
+                  className="preview-image"
+                />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </Modal>
