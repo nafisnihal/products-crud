@@ -12,14 +12,6 @@ const Table = () => {
   const [editProduct, setEditProduct] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState(false);
 
-  const handleEditProduct = () => {
-    setEditProduct(true);
-  };
-
-  const handleDeleteProduct = () => {
-    setDeleteProduct(true);
-  };
-
   const handleClose = () => {
     setEditProduct(false);
     setDeleteProduct(false);
@@ -69,13 +61,13 @@ const Table = () => {
               <td>{product?.purchaseDate}</td>
               <td>
                 <button
-                  onClick={() => handleEditProduct()}
+                  onClick={() => setEditProduct(product.id)}
                   className="border-0 text-primary fs-4"
                 >
                   <FiEdit className="pb-1" />
                 </button>
                 <button
-                  onClick={() => handleDeleteProduct()}
+                  onClick={() => setDeleteProduct(product.id)}
                   className="border-0 text-danger fs-4 ms-2"
                 >
                   <BsTrash3 className="pb-1" />

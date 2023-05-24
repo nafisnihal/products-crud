@@ -17,7 +17,7 @@ const AddProduct = ({ show, handleClose }) => {
   const { data: categoryProductData = [] } = useQuery([
     `/products/category-name-wise-product-names`,
   ]);
-  console.log(categoryProductData);
+  // console.log(categoryProductData);
 
   const { mutate: productMutation, reset } = useMutation(
     (payload) =>
