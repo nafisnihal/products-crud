@@ -20,7 +20,7 @@ cd products-crud
 npm i
 ```
 
-### Add '.env'
+<!-- ### Add '.env'
 
 Please add '.env' file to the root directory of the project provide the api key and base url to get them properly.
 
@@ -32,7 +32,7 @@ VITE_API_KEY=[your api key here]
 
 ```sh
 VITE_API_ENDPOINT=http://182.163.101.173:49029/product-crud
-```
+``` -->
 
 ### Run The Project
 
