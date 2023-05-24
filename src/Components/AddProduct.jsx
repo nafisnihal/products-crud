@@ -2,10 +2,89 @@ import React, { useState } from "react";
 import "../styles/AddProduct.scss";
 import Modal from "react-bootstrap/Modal";
 import { AiOutlineClose, AiOutlineCamera } from "react-icons/ai";
+import globalAxiosInstance from "../helpers/axiosInterceptor";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 const AddProduct = ({ show, handleClose }) => {
   const [checked, setChecked] = useState(false);
   const [image, setImage] = useState(null);
+
+  const queryClient = useQueryClient();
+
+  const { data: categoryProductData = [] } = useQuery([
+    `/products/category-name-wise-product-names`,
+  ]);
+  console.log(categoryProductData);
+
+  const { mutate: productMutation, reset } = useMutation(
+    (payload) =>
+      globalAxiosInstance.post("/products", payload, {
+        headers: {},
+      }),
+    {
+      onSuccess: () => {
+        // console.log("success");
+        queryClient.invalidateQueries(["/products"]);
+        handleClose();
+        reset();
+      },
+      onError: ({ response }) => {
+        console.log(response);
+      },
+    }
+  );
+
+  const handleAddProduct = (data) => {
+    // console.log(data);
+    const productPayload = {
+      assetNumber: data.assetNumber,
+      categoryName: data.categoryName,
+      productName: data.productName,
+      serialNumber: data.serialNumber,
+      purchasePrice: data.purchasePrice,
+      purchaseDate: data.purchaseDate,
+      warrantyInYears: data.warrantyInYears,
+      warrantyExpireDate: data.warrantyExpireDate,
+    };
+
+    const productDTO = new Blob([JSON.stringify(productPayload)], {
+      type: "application/json",
+    });
+
+    const payload = new FormData();
+    payload.append("product", productDTO);
+
+    if (Boolean(image)) {
+      payload.append("productPhoto", image);
+    }
+
+    productMutation(payload);
+    // console.log(payload);
+  };
+
+  const productSchema = yup
+    .object({
+      categoryName: yup.string().required("This is required field"),
+      productName: yup.string().required("This is required field"),
+      serialNumber: yup.string().required("This is required field"),
+      purchasePrice: yup.string().required("This is required field"),
+      purchaseDate: yup.string().required("This is required field"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    //formState: { errors },
+  } = useForm({
+    resolver: yupResolver(productSchema),
+  });
+
+  const [categoryName, setCategoryName] = useState("");
+
   return (
     <Modal id="add-products" show={show} onHide={handleClose}>
       <div className="d-flex align-items-center">
@@ -15,65 +94,82 @@ const AddProduct = ({ show, handleClose }) => {
         </button>
       </div>
       <div>
-        <form className="add-product">
+        <form className="add-product" onSubmit={handleSubmit(handleAddProduct)}>
           <div className="add-product-field">
-            <label className="add-product-label" htmlFor="category">
+            <label className="add-product-label" htmlFor="categoryName">
               Category <span className="text-danger">*</span>
             </label>
-            <select className="add-product-input" name="category" id="category">
-              <option value="computer">Computer</option>
-              <option value="laptop">Laptop</option>
-              <option value="mobile">Mobile</option>
-              <option value="camera">Camera</option>
-              <option value="others">Others</option>
+            <select
+              className="add-product-input"
+              name="categoryName"
+              id="categoryName"
+              {...register("categoryName")}
+              onChange={(e) => setCategoryName(e.target.value)}
+            >
+              <option value="">Select Category</option>
+              {categoryProductData.map((category, idx) => (
+                <option value={category.name} key={idx}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="add-product-field">
-            <label className="add-product-label" htmlFor="product-name">
+            <label className="add-product-label" htmlFor="productName">
               Product Name <span className="text-danger">*</span>
             </label>
             <select
               className="add-product-input"
-              name="product-name"
-              id="product-name"
+              name="productName"
+              id="productName"
+              {...register("productName")}
             >
-              <option value="computer">Desktop</option>
-              <option value="laptop">Laptop</option>
-              <option value="mobile">Mobile</option>
-              <option value="camera">Camera</option>
+              <option value="">Select Product</option>
+              {categoryProductData.map((category) => {
+                if (category.name === categoryName) {
+                  return category.products.map(({ name }, idx) => (
+                    <option value={name} key={idx}>
+                      {name}
+                    </option>
+                  ));
+                }
+              })}
             </select>
           </div>
           <div className="add-product-field">
-            <label className="add-product-label" htmlFor="serial-number">
+            <label className="add-product-label" htmlFor="assetNumber">
               Serial Number
             </label>
             <input
               type="text"
               className="add-product-input"
-              name="serial-number"
-              id="serial-number"
+              name="assetNumber"
+              id="assetNumber"
+              {...register("serialNumber")}
             ></input>
           </div>
           <div className="add-product-field">
-            <label className="add-product-label" htmlFor="purchase-price">
+            <label className="add-product-label" htmlFor="purchasePrice">
               Purchase Price <span className="text-danger">*</span>
             </label>
             <input
-              type="text"
+              type="number"
               className="add-product-input"
-              name="purchase-price"
-              id="purchase-price"
+              name="purchasePrice"
+              id="purchasePrice"
+              {...register("purchasePrice")}
             ></input>
           </div>
           <div className="add-product-field">
-            <label className="add-product-label" htmlFor="purchase-date">
+            <label className="add-product-label" htmlFor="purchaseDate">
               Purchase Date <span className="text-danger">*</span>
             </label>
             <input
               type="date"
               className="add-product-input"
-              name="purchase-date"
-              id="purchase-date"
+              name="purchaseDate"
+              id="purchaseDate"
+              {...register("purchaseDate")}
             ></input>
           </div>
           <div className="warranty">
@@ -92,27 +188,30 @@ const AddProduct = ({ show, handleClose }) => {
           {checked && (
             <>
               <div className="add-product-field">
-                <label className="add-product-label" htmlFor="warranty">
+                <label className="add-product-label" htmlFor="warrantyInYears">
                   Warranty <span className="text-danger">*</span>
                 </label>
-                <select
+                <input
+                  type="number"
                   className="add-product-input"
-                  name="warranty"
-                  id="warranty"
-                >
-                  <option value="3">3</option>
-                  <option value="5">5</option>
-                </select>
+                  name="warrantyInYears"
+                  id="warrantyInYears"
+                  {...register("warrantyInYears")}
+                ></input>
               </div>
               <div className="add-product-field">
-                <label className="add-product-label" htmlFor="expire-date">
+                <label
+                  className="add-product-label"
+                  htmlFor="warrantyExpireDate"
+                >
                   Expire Date <span className="text-danger">*</span>
                 </label>
                 <input
                   type="date"
                   className="add-product-input"
-                  name="expire-date"
-                  id="expire-date"
+                  name="warrantyExpireDate"
+                  id="warrantyExpireDate"
+                  {...register("warrantyExpireDate")}
                 ></input>
               </div>
             </>
@@ -121,7 +220,7 @@ const AddProduct = ({ show, handleClose }) => {
             <div className="image-btn-div">
               <label
                 htmlFor="image"
-                onClick={() => console.log("picture")}
+                // onClick={() => console.log("picture")}
                 className="image-btn"
               >
                 <AiOutlineCamera className="image-btn-icon" />

@@ -7,16 +7,12 @@ export const basicAxiosInstance = axios.create({ baseURL: BASE_URL });
 // request interceptor
 globalAxiosInstance.interceptors.request.use(
   function (config) {
-    config.headers["apiKey"] = `5apnUXsIP5ymTkXOvrPHiXe6IKM2ufFpqZ8aHEspwuI`;
+    config.headers["apiKey"] = import.meta.env.VITE_API_KEY ?? "";
     return config;
   },
   function (error) {
     return Promise.reject(error);
   }
 );
-
-globalAxiosInstance.interceptors.response.use(function (response) {
-  return response;
-});
 
 export default globalAxiosInstance;

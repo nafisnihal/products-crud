@@ -1,4 +1,4 @@
 // BACKEND URLs
-const backendURL = "http://182.163.101.173:49029/product-crud";
+const backendURL = import.meta.env.VITE_API_ENDPOINT ?? "";
 
 export const BASE_URL = backendURL;
