@@ -26,7 +26,7 @@ const AddProduct = ({ show, handleClose }) => {
       }),
     {
       onSuccess: () => {
-        // console.log("success");
+        console.log("success");
         queryClient.invalidateQueries(["/products"]);
         handleClose();
         reset();
@@ -75,11 +75,7 @@ const AddProduct = ({ show, handleClose }) => {
     })
     .required();
 
-  const {
-    register,
-    handleSubmit,
-    //formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     resolver: yupResolver(productSchema),
   });
 
@@ -100,6 +96,7 @@ const AddProduct = ({ show, handleClose }) => {
               Category <span className="text-danger">*</span>
             </label>
             <select
+              required
               className="add-product-input"
               name="categoryName"
               id="categoryName"
@@ -119,6 +116,7 @@ const AddProduct = ({ show, handleClose }) => {
               Product Name <span className="text-danger">*</span>
             </label>
             <select
+              required
               className="add-product-input"
               name="productName"
               id="productName"
@@ -153,6 +151,7 @@ const AddProduct = ({ show, handleClose }) => {
               Purchase Price <span className="text-danger">*</span>
             </label>
             <input
+              required
               type="number"
               className="add-product-input"
               name="purchasePrice"
@@ -165,6 +164,7 @@ const AddProduct = ({ show, handleClose }) => {
               Purchase Date <span className="text-danger">*</span>
             </label>
             <input
+              required
               type="date"
               className="add-product-input"
               name="purchaseDate"
@@ -192,6 +192,7 @@ const AddProduct = ({ show, handleClose }) => {
                   Warranty <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   type="number"
                   className="add-product-input"
                   name="warrantyInYears"
@@ -207,6 +208,7 @@ const AddProduct = ({ show, handleClose }) => {
                   Expire Date <span className="text-danger">*</span>
                 </label>
                 <input
+                  required
                   type="date"
                   className="add-product-input"
                   name="warrantyExpireDate"

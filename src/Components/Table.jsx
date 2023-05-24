@@ -17,7 +17,9 @@ const Table = () => {
     setDeleteProduct(false);
   };
 
-  const { data: productsData = [] } = useQuery([`/products`]);
+  const { data: productsData = [], refetch: productRefetch } = useQuery([
+    `/products`,
+  ]);
   // console.log(productsData);
   return (
     <div id="table">
@@ -81,7 +83,11 @@ const Table = () => {
         <EditProduct show={editProduct} handleClose={handleClose} />
       )}
       {deleteProduct && (
-        <DeleteProduct show={deleteProduct} handleClose={handleClose} />
+        <DeleteProduct
+          show={deleteProduct}
+          handleClose={handleClose}
+          productRefetch={productRefetch}
+        />
       )}
     </div>
   );

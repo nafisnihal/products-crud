@@ -2,8 +2,27 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import "../styles/DeleteProduct.scss";
 import { BsTrash3 } from "react-icons/bs";
+import { useMutation } from "@tanstack/react-query";
+import globalAxiosInstance from "../helpers/axiosInterceptor";
 
-const DeleteProduct = ({ show, handleClose }) => {
+const DeleteProduct = ({ show, handleClose, productRefetch }) => {
+  const { mutate: deleteMutation } = useMutation(
+    (payload) =>
+      globalAxiosInstance.delete(`/products/${show}`, {
+        headers: {},
+      }),
+    {
+      onSuccess: () => {
+        console.log("success");
+        handleClose();
+        productRefetch();
+      },
+      onError: ({ response }) => {
+        console.log(response);
+      },
+    }
+  );
+
   return (
     <Modal id="delete-product" show={show} onHide={handleClose}>
       <div className="delete-icon mx-auto">
@@ -16,7 +35,9 @@ const DeleteProduct = ({ show, handleClose }) => {
         <button onClick={handleClose} className="no-btn">
           NO
         </button>
-        <button className="yes-btn">YES</button>
+        <button onClick={deleteMutation} className="yes-btn">
+          YES
+        </button>
       </div>
     </Modal>
   );
