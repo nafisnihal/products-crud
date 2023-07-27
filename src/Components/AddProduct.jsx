@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import "../styles/AddProduct.scss";
-import Modal from "react-bootstrap/Modal";
-import { AiOutlineClose, AiOutlineCamera } from "react-icons/ai";
-import globalAxiosInstance from "../helpers/axiosInterceptor";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
+import '../styles/AddProduct.scss';
+import Modal from 'react-bootstrap/Modal';
+import { AiOutlineClose, AiOutlineCamera } from 'react-icons/ai';
+import globalAxiosInstance from '../helpers/axiosInterceptor';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
 const AddProduct = ({ show, handleClose }) => {
   const [checked, setChecked] = useState(false);
@@ -21,13 +21,13 @@ const AddProduct = ({ show, handleClose }) => {
 
   const { mutate: productMutation, reset } = useMutation(
     (payload) =>
-      globalAxiosInstance.post("/products", payload, {
+      globalAxiosInstance.post('/products', payload, {
         headers: {},
       }),
     {
       onSuccess: () => {
-        console.log("success");
-        queryClient.invalidateQueries(["/products"]);
+        console.log('success');
+        queryClient.invalidateQueries(['/products']);
         handleClose();
         reset();
       },
@@ -51,35 +51,39 @@ const AddProduct = ({ show, handleClose }) => {
     };
 
     const productDTO = new Blob([JSON.stringify(productPayload)], {
-      type: "application/json",
+      type: 'application/json',
     });
 
     const payload = new FormData();
-    payload.append("product", productDTO);
+    payload.append('product', productDTO);
 
     if (Boolean(image)) {
-      payload.append("productPhoto", image);
+      payload.append('productPhoto', image);
     }
 
     productMutation(payload);
-    // console.log(payload);
+    console.log(payload);
   };
 
   const productSchema = yup
     .object({
-      categoryName: yup.string().required("This is required field"),
-      productName: yup.string().required("This is required field"),
-      serialNumber: yup.string().required("This is required field"),
-      purchasePrice: yup.string().required("This is required field"),
-      purchaseDate: yup.string().required("This is required field"),
+      categoryName: yup.string().required('This is required field'),
+      productName: yup.string().required('This is required field'),
+      serialNumber: yup.string().required('This is required field'),
+      purchasePrice: yup.string().required('This is required field'),
+      purchaseDate: yup.string().required('This is required field'),
     })
     .required();
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(productSchema),
   });
 
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState('');
 
   return (
     <Modal id="add-products" show={show} onHide={handleClose}>
@@ -96,11 +100,10 @@ const AddProduct = ({ show, handleClose }) => {
               Category <span className="text-danger">*</span>
             </label>
             <select
-              required
               className="add-product-input"
               name="categoryName"
               id="categoryName"
-              {...register("categoryName")}
+              {...register('categoryName')}
               onChange={(e) => setCategoryName(e.target.value)}
             >
               <option value="">Select Category</option>
@@ -111,16 +114,20 @@ const AddProduct = ({ show, handleClose }) => {
               ))}
             </select>
           </div>
+          {/* {errors.categoryName && (
+            <p className="text-danger d-flex justify-content-center">
+              {errors.categoryName.message}
+            </p>
+          )} */}
           <div className="add-product-field">
             <label className="add-product-label" htmlFor="productName">
               Product Name <span className="text-danger">*</span>
             </label>
             <select
-              required
               className="add-product-input"
               name="productName"
               id="productName"
-              {...register("productName")}
+              {...register('productName')}
             >
               <option value="">Select Product</option>
               {categoryProductData.map((category) => {
@@ -143,7 +150,7 @@ const AddProduct = ({ show, handleClose }) => {
               className="add-product-input"
               name="assetNumber"
               id="assetNumber"
-              {...register("serialNumber")}
+              {...register('serialNumber')}
             ></input>
           </div>
           <div className="add-product-field">
@@ -151,12 +158,11 @@ const AddProduct = ({ show, handleClose }) => {
               Purchase Price <span className="text-danger">*</span>
             </label>
             <input
-              required
               type="number"
               className="add-product-input"
               name="purchasePrice"
               id="purchasePrice"
-              {...register("purchasePrice")}
+              {...register('purchasePrice')}
             ></input>
           </div>
           <div className="add-product-field">
@@ -164,12 +170,11 @@ const AddProduct = ({ show, handleClose }) => {
               Purchase Date <span className="text-danger">*</span>
             </label>
             <input
-              required
               type="date"
               className="add-product-input"
               name="purchaseDate"
               id="purchaseDate"
-              {...register("purchaseDate")}
+              {...register('purchaseDate')}
             ></input>
           </div>
           <div className="warranty">
@@ -192,12 +197,11 @@ const AddProduct = ({ show, handleClose }) => {
                   Warranty <span className="text-danger">*</span>
                 </label>
                 <input
-                  required
                   type="number"
                   className="add-product-input"
                   name="warrantyInYears"
                   id="warrantyInYears"
-                  {...register("warrantyInYears")}
+                  {...register('warrantyInYears')}
                 ></input>
               </div>
               <div className="add-product-field">
@@ -208,12 +212,11 @@ const AddProduct = ({ show, handleClose }) => {
                   Expire Date <span className="text-danger">*</span>
                 </label>
                 <input
-                  required
                   type="date"
                   className="add-product-input"
                   name="warrantyExpireDate"
                   id="warrantyExpireDate"
-                  {...register("warrantyExpireDate")}
+                  {...register('warrantyExpireDate')}
                 ></input>
               </div>
             </>

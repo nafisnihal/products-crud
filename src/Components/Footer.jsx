@@ -1,19 +1,18 @@
-import React from "react";
-import "../styles/Footer.scss";
+import React from 'react';
+import '../styles/Footer.scss';
 
 const Footer = () => {
   return (
     <div id="footer">
       <p>
-        Copyright 2022 |{" "}
+        Made with <span className="text-danger">&hearts;</span> by{' '}
         <a
-          href="http://www.neural-semiconductor.com/"
+          href="https://www.linkedin.com/in/nafisnihal/"
           className="text-danger text-decoration-none"
         >
-          NSL
+          Nafis Nihal
         </a>
       </p>
-      <p>Terms & Condition | Help Center</p>
     </div>
   );
 };

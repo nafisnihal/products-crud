@@ -1,5 +1,20 @@
-@import "../scss/variables.scss";
+@import '../scss/variables.scss';
 
 #header {
   background: linear-gradient(to right, $color-header-1, $color-header-2);
+  margin-top: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logo {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 5px 10px;
+    font-family: $font-family;
+    background-color: #ffffff1a;
+  }
 }

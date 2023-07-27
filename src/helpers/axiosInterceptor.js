@@ -2,7 +2,6 @@ import axios from "axios";
 import { BASE_URL } from "./API";
 
 const globalAxiosInstance = axios.create({ baseURL: BASE_URL });
-export const basicAxiosInstance = axios.create({ baseURL: BASE_URL });
 
 // request interceptor
 globalAxiosInstance.interceptors.request.use(

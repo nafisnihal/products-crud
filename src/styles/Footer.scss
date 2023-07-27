@@ -1,11 +1,10 @@
-@import "../scss/variables.scss";
+@import '../scss/variables.scss';
 
 #footer {
-  margin: 20px 15px 12px 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: $font-family;
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 12px;
 }
